@@ -7,9 +7,7 @@ import { convertMinutesHourString } from './utils/convertMinutesHourString';
 const app = express();
 
 app.use(express.json());
-app.use(cors({
-    origin: 'http://localhost:5173'
-}))
+app.use(cors())
 
 const prisma = new PrismaClient({
     log: ['query']
@@ -43,7 +41,7 @@ app.post('/games/:id/ads', async (req, res) => {
             name: body.name,
             yearsPlaying: body.yearsPlaying,
             discordId: body.discordId,
-            weekDays: body.weekDays.join(','),
+            weekDays: body.weekDays.join(', '),
             hourStart: convertHourStringToMinutes(body.hourStart),
             hourEnd: convertHourStringToMinutes(body.hourEnd),
             useVoiceChannel: body.useVoiceChannel,
